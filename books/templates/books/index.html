@@ -1,0 +1,16 @@
+{% extends 'books/base.html' %}
+{% block content %}
+<div class="container">    
+  <div class="row">
+    {% for deal in deals %}
+    <div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">{{ deal.0|upper }}</div>
+        <div class="panel-body"><img src="{{ deal.1 }}" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">{{ deal.2 }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div><br><br>
+{% endblock %}

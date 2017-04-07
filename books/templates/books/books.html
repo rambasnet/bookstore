@@ -1,0 +1,21 @@
+{% extends 'books/base.html' %}
+
+{% block jumbotron %}{% endblock %}
+{% block content %}
+<div class="container">  
+    <div class="row">
+        {% for product in products %}
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+            <img src="{{ product.0 }}" alt="{{ product.0 }}">
+            <div class="{{ product.1 }} ">
+                <h3>{{ product.2 }}</h3>
+                <p>{{ product.3 }}</p>
+                <p><a href="#" class="btn btn-primary" role="button">Add to Cart</a> <a href="#" class="btn btn-default" role="button">Save</a></p>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

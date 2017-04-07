@@ -25,7 +25,7 @@ SECRET_KEY = 'xg*1nqh1*xvz%+%zsphpw8=f%7k7^5mh%_kxef1l1p%29omen1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['amazing.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
