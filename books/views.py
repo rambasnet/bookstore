@@ -23,7 +23,7 @@ def books(request):
 def deals(request):
     context = {
         'nbar': 'deals',
-        'pageTitle': 'deals',
+        'pageTitle': 'Deals',
         'panelTitle': 'Deals',
         'panelBody': '<strong>Sorry! There are no deals at this time!</strong>'
     }
