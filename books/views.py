@@ -14,7 +14,7 @@ def index(request):
 
 def books(request):
     context = {
-                'nbar': 'products',
+                'nbar': 'books',
                 'products': [('image url', 'https://placehold.it/150x80?text=IMAGE', 'product name', 'description'),
                 ('christmas deal', 'https://placehold.it/150x80?text=IMAGE', 'product 1 name', 'descrtiption 1')]
             }
