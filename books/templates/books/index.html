@@ -1,5 +1,15 @@
 {% extends 'books/base.html' %}
+{% block jumbotron %}
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>{{ heading }}</h1>      
+    <p>{{ mission }}</p>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
+
 <div class="container">    
   <div class="row">
     {% for deal in deals %}

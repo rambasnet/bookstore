@@ -13,8 +13,8 @@
       <ul class="nav navbar-nav">
         <li class="{% if nbar == 'home' %}active{% endif %}"><a href="{% url 'index' %}">Home</a></li>
         <li class="{% if nbar == 'books' %}active{% endif %}"><a href="{% url 'books' %}">Books</a></li>
-        <li class="{% if nbar == 'deals' %}active{% endif %}"><a href="#">Deals</a></li>
-        <li class="{% if nbar == 'contact' %}active{% endif %}"><a href="#">Contact</a></li>
+        <li class="{% if nbar == 'deals' %}active{% endif %}"><a href="{% url 'deals' %}">Deals</a></li>
+        <li class="{% if nbar == 'contact' %}active{% endif %}"><a href="{% url 'contact' %}">Contact</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-user"></span> Your Account</a></li>
