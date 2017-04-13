@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import datetime
+from .models import Book
 
 # Create your views here.
 def index(request):
@@ -15,8 +16,7 @@ def index(request):
 def books(request):
     context = {
                 'nbar': 'books',
-                'products': [('image url', 'https://placehold.it/150x80?text=IMAGE', 'product name', 'description'),
-                ('christmas deal', 'https://placehold.it/150x80?text=IMAGE', 'product 1 name', 'descrtiption 1')]
+                'books': Book.objects.all(),
             }
     return render(request, 'books/books.html', context)
 

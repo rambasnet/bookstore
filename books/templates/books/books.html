@@ -2,13 +2,22 @@
 {% block content %}
 <div class="container">  
     <div class="row">
-        {% for product in products %}
+        {% for book in books %}
         <div class="col-sm-6 col-md-4">
             <div class="thumbnail">
-            <img src="{{ product.0 }}" alt="{{ product.0 }}">
-            <div class="{{ product.1 }} ">
-                <h3>{{ product.2 }}</h3>
-                <p>{{ product.3 }}</p>
+            <img src="{{ book.image.url }}" alt="Image">
+            <div class="caption">
+                <h3>{{ book.title }}</h3>
+                <h4>{{ book.publisher }}
+                    <div class="list-group">
+                    <a href="#" class="list-group-item active">
+                        Authors
+                    </a>
+                    {% for author in book.authors.all %}
+                        <a href="#" class="list-group-item">{{ author }}</a>
+                    {% endfor %}
+                    </div>
+                <p>{{ product.description }}</p>
                 <p><a href="#" class="btn btn-primary" role="button">Add to Cart</a> <a href="#" class="btn btn-default" role="button">Save</a></p>
             </div>
             </div>
