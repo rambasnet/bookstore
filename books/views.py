@@ -25,7 +25,7 @@ def deals(request):
         'nbar': 'deals',
         'pageTitle': 'Deals',
         'panelTitle': 'Deals',
-        'panelBody': '<strong>Sorry! There are no deals at this time!</strong>'
+        'panelBody': '<strong>Sorry! There are no deals at this time. Sign up to get deals deliver to your inbox...</strong>'
     }
     return render(request, 'books/static.html', context)
 
