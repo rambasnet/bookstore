@@ -16,7 +16,7 @@
                     <h4>Publisher: {{ book.publisher }}
                         <div class="list-group">
                         <div class="list-group-item active">
-                            Author(s)
+                            Author{{ book.authors.all|pluralize }}
                         </div>
                         {% for author in book.authors.all %}
                             <a href="#" class="list-group-item">{{ author }}</a>

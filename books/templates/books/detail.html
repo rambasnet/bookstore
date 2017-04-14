@@ -13,7 +13,7 @@
             <h3 class="media-heading">{{ book.title }}</h3>
             <ul class="list-group">
                 <li class="list-group-item">Publisher: {{ book.publisher }}</li>
-                <li class="list-group-item">Author(s): 
+                <li class="list-group-item">Author{{ book.authors.all|pluralize }}: 
                     {% for author in book.authors.all %}
                         <a href="#">{{ author }}</a>
                     {% endfor %}
