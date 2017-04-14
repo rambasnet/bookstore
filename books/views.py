@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 import datetime
 from .models import Book
@@ -9,16 +9,27 @@ def index(request):
                 'heading': 'Amazing Textbook Store',
                 'mission': 'home of amazingly cheap college textbooks',
                 'deals': [('black friday deal', 'https://placehold.it/150x80?text=IMAGE', 'Buy 50 mobiles and get a gift card'),
-                ('christmas deal', 'https://placehold.it/150x80?text=IMAGE', 'Buy 1 mobile and get 1 free')]
+                ('christmas deal', 'https://placehold.it/150x80?text=No+Image', 'Buy 1 mobile and get 1 free')]
             }
     return render(request, 'books/index.html', context)
 
-def books(request):
+def book_list(request):
     context = {
                 'nbar': 'books',
-                'books': Book.objects.all(),
+                'pageTitle': 'Books',
+                #'books': Book.objects.all(),
+                'books': Book.objects.filter(available=True)
             }
-    return render(request, 'books/books.html', context)
+    return render(request, 'books/list.html', context)
+
+def book_detail(request, id, slug):
+    book = get_object_or_404(Book, id=id, slug=slug, available=True)
+    context = {
+                'nbar': 'books',
+                'pageTitle': book.title,
+                'book': book
+    }
+    return render(request, 'books/detail.html', context)
 
 def deals(request):
     context = {

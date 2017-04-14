@@ -1,0 +1,35 @@
+{% extends 'books/base.html' %}
+{% block title %}{{ pageTitle }}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="media">
+        <div class="media-left">
+            <a href="#"><img class="media-object" width="300px" src="
+            {% if book.image %}{{ book.image.url }}
+            {% else %}https://placehold.it/300x500?text=No+Image 
+            {% endif %}" alt="No Image"></a>
+        </div>
+        <div class="media-body">
+            <h3 class="media-heading">{{ book.title }}</h3>
+            <ul class="list-group">
+                <li class="list-group-item">Publisher: {{ book.publisher }}</li>
+                <li class="list-group-item">Author(s): 
+                    {% for author in book.authors.all %}
+                        <a href="#">{{ author }}</a>
+                    {% endfor %}
+                </li>
+                <li class="list-group-item">
+                    <a href="#" class="btn btn-success" role="button">
+                            Add to Cart</a> 
+                    <a href="#" class="btn btn-default" 
+                            role="button">Save</a>
+                </li>
+                <li class="list-group-item">
+                <p>Description:</p>
+                <p>{{ book.description|safe }}</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

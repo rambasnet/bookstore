@@ -1,9 +1,12 @@
 from django.conf.urls import url
-from .views import index, books, contact, deals
+from . import views
 
 urlpatterns = [
-    url(r'^$', index, name='index'),
-    url(r'books/$', books, name='books'),
-    url(r'deals/', deals, name='deals'),
-    url(r'contact/$', contact, name='contact')
+    url(r'^$', views.index, name='index'),
+    url(r'books/$', views.book_list, name='books'),
+    url(r'deals/', views.deals, name='deals'),
+    url(r'contact/$', views.contact, name='contact'),
+    url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$',
+        views.book_detail, 
+        name='book_detail'),
 ]

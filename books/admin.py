@@ -1,15 +1,17 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from .models import Book, Publisher, Author
 
 # Register your models here.
 
-class BookAdmin(admin.ModelAdmin):
-    list_display = ('title', 'publisher','publication_date')
+class BookAdmin(SummernoteModelAdmin):
+    list_display = ('title', 'publisher', 'available', 'publication_date')
     list_filter = ('publication_date',)
     date_hierarchy = 'publication_date'
     ordering = ('-publication_date',)
     filter_horizontal = ('authors',)
     raw_id_fields = ('publisher',)
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class AuthorAdmin(admin.ModelAdmin):
