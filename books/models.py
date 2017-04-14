@@ -63,3 +63,10 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse('book_detail', args=[self.id, self.slug])
 
+class Subscription(models.Model):
+    email = models.EmailField()
+    created = models.DateTimeField(auto_now_add=True)
+    subscribed = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email

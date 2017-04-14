@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/(?P<slug>[-\w]+)/$',
         views.book_detail, 
         name='book_detail'),
+    url(r'subscribe/$', views.subscribe, name='subscribe')
 ]

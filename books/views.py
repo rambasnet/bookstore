@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 import datetime
-from .models import Book
+from .models import Book, Subscription
 
 # Create your views here.
 def index(request):
@@ -30,6 +31,22 @@ def book_detail(request, id, slug):
                 'book': book
     }
     return render(request, 'books/detail.html', context)
+
+def subscribe(request):
+    errors = []
+    context = {}
+    if 'email' in request.GET:
+        email_id = request.GET.get('email')
+        if not email_id:
+            errors.append('Please enter a valid email address.')
+        else:
+            subs = Subscription.objects.create(email=email_id)
+            context['pageTitle']= 'Thank you!'
+            context['panelTitle'] = 'Thank you!'
+            context['panelBody'] = 'Thank you for subscribing to our mailing list.'
+            return render(request, 'books/static.html', context)
+    else:
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 def deals(request):
     context = {
