@@ -62,7 +62,7 @@ def deals(request):
         'nbar': 'deals',
         'pageTitle': 'Deals',
         'panelTitle': 'Deals',
-        'panelBody': '<strong>Sorry! There are no deals at this time. Sign up to get deals deliver to your inbox...</strong>'
+        'panelBody': '<strong>Sorry, no deals at this time. Sign up to get deals delivered right to your inbox...</strong>'
     }
     return render(request, 'books/static.html', context)
 
@@ -79,12 +79,14 @@ def contact(request):
                         Grand Junction, CO 81501 <br>
                         &phone;: (970) 123-4567<br>
                         <span class="glyphicon glyphicon-envelope"></span>: help@amazing.com<br>
+                </address>
             </li>
             <li class="list-group-item"><strong>Denver Office: </strong><br />
                 <address>123 Amazing Street</br>
                         Denver, CO 81111 <br>
                         &phone;: (970) 123-1234<br>
                         <span class="glyphicon glyphicon-envelope"></span>: denver@amazing.com<br>
+                </address>
             </li>
             <li class="list-group-item">Porta ac consectetur ac</li>
             <li class="list-group-item">Vestibulum at eros</li>
