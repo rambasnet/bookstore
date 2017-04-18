@@ -2,6 +2,7 @@ import uuid, os
 from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
+from django.utils.text import slugify
 
 # Create your models here.
 from django.db import models
@@ -10,6 +11,12 @@ def get_file_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
     return os.path.join('books/img', filename)
+
+def get_slug(instance, *argv):
+    slug = ''
+    for arg in argv:
+        slug += slugify(arg)
+    return slug
 
 class Publisher(models.Model):
     name = models.CharField(max_length=30)
@@ -25,9 +32,10 @@ class Publisher(models.Model):
         return self.name
 
 class Author(models.Model):
-    first_name = models.CharField(max_length=30)
+    first_name = models.CharField(max_length=30, db_index=True)
     middle_name = models.CharField(max_length=40, blank=True, null=True)
-    last_name = models.CharField(max_length=40)
+    last_name = models.CharField(max_length=40, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True)
     email = models.EmailField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -37,10 +45,11 @@ class Author(models.Model):
 
     class Meta:
         ordering = ('first_name', 'last_name')
+        index_together = (('id', 'slug'),)
 
 class Book(models.Model):
     title = models.CharField(max_length=200, db_index=True)
-    slug = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, db_index=True)
     authors = models.ManyToManyField(Author)
     publisher = models.ForeignKey(Publisher)
     publication_date = models.DateField()

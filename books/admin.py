@@ -17,6 +17,7 @@ class BookAdmin(SummernoteModelAdmin):
 class AuthorAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email')
     search_fields = ('first_name', 'last_name')
+    prepopulated_fields = {'slug': ('first_name', 'middle_name', 'last_name',)}
 
 
 class SubscriptionAdmin(admin.ModelAdmin):
