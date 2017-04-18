@@ -45,7 +45,7 @@ def subscribe(request):
     errors = []
     context = {}
     if 'email' in request.GET:
-        email_id = request.GET.get('email')
+        email_id = request.GET.get('email', '')
         if not email_id:
             errors.append('Please enter a valid email address.')
         else:
@@ -224,7 +224,6 @@ def signup(request):
                       })
 
     
-
 @login_required  
 def dashboard(request):
     context = {

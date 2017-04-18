@@ -18,12 +18,12 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{% if user.is_authenticated %}
-                      {% url 'account' %}
+                      {% url 'dashboard' %}
                       {% else %}
                       {% url 'login' %}
                       {% endif %}
                       "><span class="glyphicon glyphicon-user"></span> 
-                      {% if user.is_authenticated %}Howdy, {{ user.username }}
+                      {% if request.user.is_authenticated %}Howdy, {{ user.username }}
                       {% else %} Login {% endif %}</a>
         </li>
         {% if user.is_authenticated %}
