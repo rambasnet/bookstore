@@ -262,3 +262,16 @@ def account(request):
                         'errorType': errorType
                     })
 
+
+def search(request):
+    context = {}
+    if 'search' in request.GET:
+        q = request.GET.get('search', '')
+        if q:
+            books = Book.objects.filter(title__icontains=q)
+            context['pageTitle']= 'Search results'
+            context['panelTitle'] = '%d matching results'%len(books)
+            context['books'] = books
+            return render(request, 'books/search_results.html', context)
+    
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))

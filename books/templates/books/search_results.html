@@ -1,0 +1,35 @@
+{% extends 'books/base.html' %}
+{% block title %}{{ pageTitle }}{% endblock %}
+{% block content %}
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ books.count }} matching result{{ books.count|pluralize }}</h3>
+        </div>
+        <div class="panel-body">
+            {% for book in books %}
+            <div class="media">
+                <div class="media-left">
+                    {% load thumbnail %}
+                {% thumbnail book.image "100" as im %}
+                    <a href="{{ book.image.url }}">
+                        <img src="{{ im.url }} " class="media-object" alt="Thumbnail">
+                    </a>
+                {% endthumbnail %}
+                </div>
+                <div class="media-body">
+                    <h5 class="media-heading">{{ book.title }}</h5>
+                     Author{{ book.authors.all|pluralize }}:
+                        {% for author in book.authors.all %}
+                            <a href="#"> {{ author }}</a>
+                        {% endfor %}
+                    <p>{{ book.description|safe|truncatewords:"20" }}</p>
+                    <p><a href="{{ book.get_absolute_url }}" class="btn btn-default" 
+                        role="button">Detail</a></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
