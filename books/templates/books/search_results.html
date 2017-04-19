@@ -1,4 +1,5 @@
 {% extends 'books/base.html' %}
+{% load thumbnail %}
 {% block title %}{{ pageTitle }}{% endblock %}
 {% block content %}
 <div class="container-fluid">
@@ -10,7 +11,6 @@
             {% for book in books %}
             <div class="media">
                 <div class="media-left">
-                    {% load thumbnail %}
                 {% thumbnail book.image "100" as im %}
                     <a href="{{ book.image.url }}">
                         <img src="{{ im.url }} " class="media-object" alt="Thumbnail">
