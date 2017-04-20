@@ -1,5 +1,6 @@
 from django.contrib import auth
 from django import forms
+from . import models
 
 class AccountForm(forms.ModelForm):
     password = forms.CharField(label='Password',
@@ -24,3 +25,10 @@ class AccountEditForm(forms.ModelForm):
         model = auth.models.User
         fields = ['first_name', 'last_name', 'email']
     
+
+class ProfileEditForm(forms.ModelForm):
+    dob = forms.DateField(label="Date of birth", 
+                        widget=forms.DateInput(attrs={'type': 'date'}, format='%m/%d/%Y'))
+    class Meta:
+        model = models.Profile
+        fields = ['dob', 'photo']

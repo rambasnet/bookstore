@@ -10,7 +10,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.forms import ModelForm
 from django.conf import settings
 from .models import Book, Subscription
-from .forms import AccountForm, AccountEditForm
+from .forms import AccountForm, AccountEditForm,ProfileEditForm
 
 
 # Create your views here.
@@ -227,7 +227,6 @@ def signup(request):
 @login_required  
 def dashboard(request):
     context = {
-        'nbar': 'deals',
         'pageTitle': 'Dashboard',
         'panelTitle': 'Dashboard',
         'panelBody': '<strong>TBD... Display account dashboard here...</strong>'
@@ -243,8 +242,12 @@ def account(request):
         accForm = AccountEditForm(instance=request.user,
                                  data=request.POST,
                                  )
-        if accForm.is_valid():
+        profileForm = ProfileEditForm(instance=request.user.profile,
+                                    data=request.POST,
+                                    files=request.FILES)
+        if accForm.is_valid() and profileForm.is_valid():
             accForm.save()
+            profileForm.save()
             errorMessage.append('Account update successful!')
             errorType = 'success'
         else:
@@ -252,12 +255,14 @@ def account(request):
                 errorMessage.append(accForm.errors[k])
     else:
         accForm = AccountEditForm(instance=request.user)
+        profileForm = ProfileEditForm(instance=request.user.profile)
 
     return render(request, 'books/account.html', 
                     {   
                         'pageTitle': 'Account Update',
                         'panelTitle': 'Account Update',
                         'accountForm': accForm,
+                        'profileForm': profileForm,
                         'errorMessage': '<br>'.join(errorMessage),
                         'errorType': errorType
                     })

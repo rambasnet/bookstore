@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from .models import Book, Publisher, Author, Subscription
+from . import models
 
 # Register your models here.
 
@@ -25,7 +25,11 @@ class SubscriptionAdmin(admin.ModelAdmin):
     search_fields = ('email',)
     list_filter = ('email',)
 
-admin.site.register(Book, BookAdmin)
-admin.site.register(Publisher)
-admin.site.register(Author, AuthorAdmin)
-admin.site.register(Subscription, SubscriptionAdmin)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'dob', 'photo']
+
+admin.site.register(models.Book, BookAdmin)
+admin.site.register(models.Publisher)
+admin.site.register(models.Author, AuthorAdmin)
+admin.site.register(models.Subscription, SubscriptionAdmin)
+admin.site.register(models.Profile, ProfileAdmin)

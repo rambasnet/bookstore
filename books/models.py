@@ -3,6 +3,7 @@ from django.db import models
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.utils.text import slugify
+from django.contrib.auth import models as authModels
 
 # Create your models here.
 from django.db import models
@@ -11,6 +12,11 @@ def get_file_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = "%s.%s" % (uuid.uuid4(), ext)
     return os.path.join('books/img', filename)
+
+def getProfilePath(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('profiles/img', filename)
 
 def get_slug(instance, *argv):
     slug = ''
@@ -72,6 +78,7 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse('book_detail', args=[self.id, self.slug])
 
+
 class Subscription(models.Model):
     email = models.EmailField()
     created = models.DateTimeField(auto_now_add=True)
@@ -79,3 +86,12 @@ class Subscription(models.Model):
 
     def __str__(self):
         return self.email
+
+#Extending User model
+class Profile(models.Model):
+    user = models.OneToOneField(authModels.User)
+    dob = models.DateField(blank=True, null=True)
+    photo = models.ImageField(upload_to=getProfilePath, blank=True)
+    
+    def __str__(self):
+        return 'Profile: {}'.format(self.user.username)

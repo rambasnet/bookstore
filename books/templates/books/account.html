@@ -15,10 +15,11 @@
                 </div>
             {% endif %}
             <p>Please update account information using the following form:</p>
-            <form action='.' method="post">
+            <form action='.' method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <table>
                 {{ accountForm.as_table }}
+                {{ profileForm.as_table }}
                 </table>
                 <p><button type="submit" class="btn btn-success">Update</button></p>
             </form>
