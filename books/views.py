@@ -24,11 +24,15 @@ def index(request):
     return render(request, 'books/index.html', context)
 
 def book_list(request):
+    books = Book.objects.filter(available=True)
+    for book in books:
+        book.discounted_price = "%.2f"%(book.price - book.discount_percent/100*book.price)
+
     context = {
                 'nbar': 'books',
                 'pageTitle': 'Books',
                 #'books': Book.objects.all(),
-                'books': Book.objects.filter(available=True)
+                'books': books
             }
     return render(request, 'books/list.html', context)
 

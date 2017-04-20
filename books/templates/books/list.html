@@ -6,31 +6,35 @@
     <h1 class="page-header">Featured Textbooks</h1>  
     <div class="row">
         {% for book in books %}
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                {% thumbnail book.image "300x250" as im %}
-                    <a href="{{ book.image.url }}">
-                        <img src="{{ im.url }} " class="media-object" alt="Thumbnail">
-                    </a>
-                {% endthumbnail %}
-                <div class="caption">
-                    <h3>{{ book.title }}</h3>
-                    <h4>Publisher: {{ book.publisher }}
-                        <div class="list-group">
-                        <div class="list-group-item active">
-                            Author{{ book.authors.all|pluralize }}
-                        </div>
-                        {% for author in book.authors.all %}
-                            <a href="#" class="list-group-item">{{ author }}</a>
-                        {% endfor %}
-                        </div>
-                    <p>{{ book.description|safe|truncatewords:"30" }}</p>
-                    <p><a href="#" class="btn btn-success" role="button">
-                            Add to Cart</a> <a href="{{ book.get_absolute_url }}" class="btn btn-default" 
-                        role="button">Detail</a></p>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    {% thumbnail book.image "300x250" as im %}
+                        <a href="{{ book.image.url }}">
+                            <img src="{{ im.url }} " class="media-object" alt="Thumbnail">
+                        </a>
+                    {% endthumbnail %}
+                    <div class="caption">
+                        <h3>{{ book.title }}</h3>
+                        Regular Price: <strong><del>${{ book.price }} </del></strong><br>
+                        Discount: <strong> {{ book.discount_percent }}%</strong><br>
+                        Discounted Price: ${{ book.discounted_price }}
+                        <h4>Publisher: {{ book.publisher }} </h4>
+                            <div class="list-group">
+                                <div class="list-group-item active">
+                                    Author{{ book.authors.all|pluralize }}
+                                </div>
+                                {% for author in book.authors.all %}
+                                    <a href="#" class="list-group-item">{{ author }}</a>
+                                {% endfor %}
+                            </div>
+                        <p>{{ book.description|safe|truncatewords:"30" }}</p>
+                        <p><a href="#" class="btn btn-success" role="button">
+                                Add to Cart</a> <a href="{{ book.get_absolute_url }}" class="btn btn-default" 
+                            role="button">Detail</a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </div>
 </div>
