@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.password_validation import validate_password
 from django.forms import ModelForm
 from django.conf import settings
-from .models import Book, Subscription
+from .models import Book, Subscription, Profile
 from .forms import AccountForm, AccountEditForm,ProfileEditForm
 
 
@@ -166,7 +166,7 @@ def signup(request):
             # check for duplicate username
             user = auth.models.User.objects.filter(username=accForm.cleaned_data['username'])
             if user:
-                url = '/recover/'
+                url = '/recover/' # not implemented
                 error_message = [u'''Account with email {username} already exists. <a href="{url}">
                                  Forgot your password? </a>
                                  '''.format(username=html.escape(accForm.cleaned_data['username']), url=url)]
@@ -185,13 +185,16 @@ def signup(request):
                 error_message.append('<br>'.join(accForm.errors[k]))
 
         if valid:
-            # Save the user's form data to the database.
+            # Save the user's form data to the built-in user table.
             user = accForm.save(commit=False)
             user.set_password(accForm.cleaned_data['password']) # set the password using default hashing
             user.is_active = True #set it to False if verifcation is required
             user.is_superuser = False
             user.is_staff = False
             user.save()
+            # save user to profile table as well
+            profile = Profile(user=user)
+            profile.save()
             # generate_activation_key_and_send_email(site_url, user)
             # send_mail(subject, message, from_email, to_list, html_message=html_message, fail_silently=True)
             # Update our variable to tell the template registration was successful.
